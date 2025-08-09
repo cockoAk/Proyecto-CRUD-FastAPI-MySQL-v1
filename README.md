@@ -7,7 +7,7 @@ ATENCION: este es el inicio de un proyecto estoy aprendiendo a usar fastapi y ha
 - **HTML + JS** – Interfaz mínima para operaciones CRUD
 - **Selenium** – Automatización de pruebas
 
-- ##Cómo ejecutar el proyecto
+##Cómo ejecutar el proyecto
 
 1. **Instala dependencias de python**
    fastapi
