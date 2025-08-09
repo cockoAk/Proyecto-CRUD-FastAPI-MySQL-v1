@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD de Usuarios</title>
+</head>
+<body>
+  <h1>Gestión de Usuarios</h1>
+
+  <!-- Crear usuario -->
+  <h3>Crear Usuario</h3>
+  <input type="email" id="crear-correo" placeholder="Correo">
+  <input type="text" id="crear-contrasenia" placeholder="Contraseña">
+  <button onclick="crearUsuario()">Crear</button>
+  <p id="crear-respuesta"></p>
+
+  <!-- Actualizar contraseña -->
+  <h3>Actualizar Contraseña</h3>
+  <input type="email" id="actualizar-correo" placeholder="Correo">
+  <input type="text" id="nueva-contrasenia" placeholder="Nueva Contraseña">
+  <button onclick="actualizarUsuario()">Actualizar</button>
+  <p id="actualizar-respuesta"></p>
+
+  <!-- Eliminar usuario -->
+  <h3>Eliminar Usuario</h3>
+  <input type="email" id="eliminar-correo" placeholder="Correo">
+  <button onclick="eliminarUsuario()">Eliminar</button>
+  <p id="eliminar-respuesta"></p>
+
+  <!-- Mostrar todos -->
+  <h3>Lista de Usuarios</h3>
+  <button onclick="mostrarUsuarios()">Mostrar Todos</button>
+  <ul id="lista-usuarios"></ul>
+
+  <script>
+    const baseURL = "http://localhost:8000";
+
+    async function crearUsuario() {
+      const correo = document.getElementById("crear-correo").value;
+      const contraseña = document.getElementById("crear-contrasenia").value;
+      const res = await fetch(`${baseURL}/insertar_usuario/?correo=${correo}&contraseña=${contraseña}`, {
+        method: "POST"
+      });
+      const data = await res.json();
+      document.getElementById("crear-respuesta").textContent = JSON.stringify(data);
+    }
+
+    async function actualizarUsuario() {
+      const correo = document.getElementById("actualizar-correo").value;
+      const nueva = document.getElementById("nueva-contrasenia").value;
+      const res = await fetch(`${baseURL}/actualizar_usuario/?correo=${correo}&nueva_contrasenia=${nueva}`, {
+        method: "PUT"
+      });
+      const data = await res.json();
+      document.getElementById("actualizar-respuesta").textContent = JSON.stringify(data);
+    }
+
+    async function eliminarUsuario() {
+      const correo = document.getElementById("eliminar-correo").value;
+      const res = await fetch(`${baseURL}/eliminar_usuario/?correo=${correo}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
+      document.getElementById("eliminar-respuesta").textContent = JSON.stringify(data);
+    }
+
+    async function mostrarUsuarios() {
+      const res = await fetch(`${baseURL}/mostrar_todos_usuarios/`);
+      const data = await res.json();
+      const lista = document.getElementById("lista-usuarios");
+      lista.innerHTML = "";
+      data.usuarios.forEach(u => {
+        const item = document.createElement("li");
+        item.textContent = `Correo: ${u.correo}, Contraseña: ${u.contraseña}`;
+        lista.appendChild(item);
+      });
+    }
+  </script>
+</body>
+</html>
