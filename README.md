@@ -15,7 +15,7 @@ ATENCION: este es el inicio de un proyecto estoy aprendiendo a usar fastapi y ha
    mysql-connector-python
 
 2. para iniciar el mismo:
-  uvicorn main:app --reload (para el backend)
+  python -m uvicorn main:app --reload (para el backend)
   uso de alguna herramienta como live server para el frontend
 
 
